@@ -1,0 +1,299 @@
+/* modal */
+#modalSignin {
+    display: none;
+    width: 87%;
+    height: 80%;
+}
+/* topo */
+#botao-home {
+    margin-top: 1.5em;
+}
+.botao-voltar-painel {
+    position: relative;
+    bottom: 2em;
+}
+.botao-sair {
+    position: relative;
+    top: 1.5em;
+}
+/* sidebar cliente */
+#lista-sidebar {
+    list-style: none;
+    padding: 0;
+}
+a.links-sidebar {
+    text-decoration: none;
+}
+/* sidebar adm */
+ul.links-sidebar-adm {
+    list-style: none;
+    padding: 0;
+}
+ul.links-sidebar-adm li a {
+    text-decoration: none;
+}
+ul.links-sidebar-adm li a:hover {
+    text-decoration: underline;
+}
+/* página home */
+.home-produto-caixa {
+    padding: 0.7em;
+}
+.home-produto-nome {
+    font-size: 14px;
+}
+.home-produto-marca, .home-produto-preco {
+    font-size: 12px;
+}
+.home-produto-condicoes {
+    font-size: 10px;
+}
+.home-produto-botao-VerProduto {
+    font-size: 12px;
+}
+/* login */
+#login {
+    background: #2C3E50;
+}
+/* submenu subcategorias */
+ul.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    background-color: #444;
+    margin: 0;
+    padding: 0;
+    min-width: 180px;
+}
+ul.submenu li a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+ul.submenu li a:hover {
+    background-color: #666;
+}
+ul.menu > li:hover .submenu {
+    display: block;
+}
+/* lista de endereços */
+.caixa-endereco {
+    background: #D3D3D3;
+    margin: 10px;
+}
+#editar-endereco-botao {
+    margin-right: 1em;
+}
+/* adicionar endereço */
+.mensagem-erro-preencher-dados {
+    font-size: 18px;
+}
+.spinner-cep {
+    font-size: 1.2em;
+}
+/* editar endereço */
+.msg-erro-editar-endereco {
+    font-size: 22px;
+}
+/* cliente - pedidos */
+.lista-pedidos-cliente {
+    border: 1px dotted #000000;
+}
+.img-pedido {
+    padding: 0.7em;
+}
+/* checkout - outro arquivo */
+/* adm - editar dados pessoais */
+.fundo-cinza {
+    background: #D3D3D3;
+}
+#calendario {
+    margin-right: 1.1em;
+}
+.caixa-pedidos-adm {
+    border: 1px solid #000000;
+}
+/* adm - pedido */
+#pedido-adm, #pedido-cliente {
+    border: 2px solid #000000;
+}
+.borda-dir {
+    border-right: 1px dotted #000000;
+}
+#bandeira-simbolo, #bandeira-simbolo-cliente {
+    font-size: 3.3em;
+}
+/* adm - adicionar categoria/subcategoria */
+.borda-preta {
+    border: 1px solid #000000;
+}
+.borda-azul {
+    border: 1px solid #0000FF;
+}
+/* adm - cadastrar produto */
+#coluna-botao-calcular-parcelas {
+    width: 100px;
+}
+#coluna-simbolo-igual {
+    width: 45px;
+}
+/* adm - buscar produtos */
+#lista-produtos {
+    margin-top: 150px;
+}
+.altura-img-buscar-produtos {
+    height: 120px;
+}
+/* carrinho de compras cliente */
+.produto-borda-carrinho {
+    border: 1px dotted #000000;
+}
+.produto-fundo-carrinho {
+    background: #D3D3D3;
+}
+.link-produto-carrinho {
+    text-decoration: none;
+}
+#aumentarDiminuirItem {
+    display: flex;
+}
+button#diminuir-quantidade {
+    margin-left: 30px;
+}
+.campo-quantidade-produtos-carrinho {
+    width: 50%;
+}
+.produto-centralizar-elementos-carrinho {
+    align-items: center;
+}
+.negrito {
+    font-weight: bold;
+}
+.botao-remover-produto-carrinho {
+    font-size: 12px;
+}
+/* menu home */
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* ======= MENU DESKTOP ======= */
+    .menu-container {
+      position: relative;
+      background-color: #f3f3f3;
+      padding: 10px 40px;
+      display: flex;
+      align-items: center;
+    }
+
+    .menu {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .menu::-webkit-scrollbar {
+      display: none;
+    }
+
+    .menu {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .menu-item {
+      flex: 0 0 auto;
+      background-color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .menu-item:hover {
+      background-color: #ddd;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.9);
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 10px;
+      z-index: 1;
+    }
+
+    .arrow.left {
+      left: 0;
+    }
+
+    .arrow.right {
+      right: 0;
+    }
+
+    /* ======= MENU MOBILE ======= */
+    .hamburger {
+      display: none;
+      padding: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      background-color: #f3f3f3;
+      border: none;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background-color: #f3f3f3;
+      padding: 10px;
+    }
+
+    .mobile-menu-item {
+      background-color: white;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #f3f3f3;
+    }
+/* media-queries */
+@media only screen and (min-width: 200px) and (max-width: 400px) {
+    .fonte-modal {
+        font-size: 0.8em;
+    }
+    #floatingInput, #floatingPassword {
+        font-size: 0.8em;
+    }
+    #fechar-modal-login {
+        font-size: 0.8em;
+    }
+}
+/* ======= MENU HOME RESPONSIVO ======= */
+@media (max-width: 768px) {
+    .menu-container {
+    display: none;
+    }
+
+    .hamburger {
+    display: block;
+    }
+
+    .mobile-menu.show {
+    display: flex;
+    }
+}

@@ -1,0 +1,83 @@
+<?php
+
+  $menu = [];
+
+  // lista que traz as Categorias e as Subcategorias
+  foreach ($cat as $item) {
+
+      $id = $item['id_categoria'];
+
+      // inclusão da Categoria
+      $menu[$id]['id'] = $item['id_categoria'];
+      $menu[$id]['nome'] = $item['categoria'];
+
+      // agrupar todas as Subcategorias que pertencem a Categoria já inclusa acima
+      $menu[$id]['subcategorias'][] = [
+          'id' => $item['id_subcategoria'],
+          'nome' => $item['subcategoria']
+      ];
+  }
+  
+?>
+
+<div class="container-fluid">
+
+  <!-- Botão Hamburger -->
+  <button class="hamburger float-end" id="hamburger">&#9776; </button>
+
+  <!-- MENU MOBILE -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div class="row">
+        <?php foreach ($menu as $categoria) { ?>
+          <div class="col-12">
+            <?php if (!empty($categoria['subcategorias'])) { ?>
+              <div class="mobile-menu-item">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown<?= $categoria['id'] ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <?= htmlspecialchars($categoria['nome']) ?>
+                  </a>
+                  <ul class="dropdown-menu submenu" aria-labelledby="dropdown<?= $categoria['id'] ?>">
+                      <?php foreach ($categoria['subcategorias'] as $sub) { ?>
+                          <li><a id="sub-<?= $sub['id'] ?>" href="#" data-id="<?= $sub['id'] ?>">
+                              <?= htmlspecialchars($sub['nome']) ?>
+                          </a></li>
+                      <?php } ?>
+                  </ul>
+                </li>
+              </div>
+            <?php } ?>
+          </div>
+        <?php } ?>
+      </div>
+    </ul>
+  </div>
+
+  <!-- MENU DESKTOP -->
+  <div class="menu-container">
+    <button class="arrow left">&#8249;</button>
+    <div class="menu" id="menu">
+      <?php foreach ($menu as $categoria) { ?>
+        <?php if (!empty($categoria['subcategorias'])) { ?>
+          <div class="menu-item">
+            <div class=" ">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown<?= $categoria['id'] ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <?= htmlspecialchars($categoria['nome']) ?>
+              </a>
+              <ul class="dropdown-menu submenu" aria-labelledby="dropdown<?= $categoria['id'] ?>">
+                  <?php foreach ($categoria['subcategorias'] as $sub) { ?>
+                      <li><a id="sub-<?= $sub['id'] ?>" href="#" data-id="<?= $sub['id'] ?>">
+                          <?= htmlspecialchars($sub['nome']) ?>
+                      </a></li>
+                  <?php } ?>
+              </ul>
+            </div>
+          </div>
+        <?php } ?>
+      <?php } ?>
+    </div>
+    <button class="arrow right">&#8250;</button>
+  </div>
+</div>
+
+<script src="/assets/js/menu.js"></script>

@@ -1,0 +1,27 @@
+<?php
+    $opcao = 0;
+
+    // URI do painel principal
+    if(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) == '/cliente/painel' || parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) == '/login/validar') $opcao = 1;
+
+    // URI diferente do painel principal
+    else if(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) != '/cliente/painel' || parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) != '/login/validar') $opcao = 2;
+?>
+<div class="col-10">
+
+    <!-- quando Usuário Cliente estiver acessando o painel principal, o botão da Loja estará sendo exibido -->
+    <?php if($opcao == 1) { ?>
+        <a id="botao-home" href="/" class="btn btn-primary">Loja</a>
+        <h1 class="text-center">Meu Painel</h1>
+    <?php } ?>
+
+    <!-- quando Usuário Cliente estiver acessando outras seções internas, o botão da Loja não estará sendo exibido -->
+    <?php if($opcao == 2) { ?>
+        <h1 class="text-center">Meu Painel</h1>
+    <?php } ?>
+
+</div>
+
+<div class="col-2">
+    <a href="/logoff" class="btn btn-danger botao-sair">Sair</a>
+</div>
