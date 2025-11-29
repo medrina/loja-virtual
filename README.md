@@ -1,6 +1,5 @@
-# Projeto Loja Virtual
-O Projeto Loja Virtual foi desenvolvido com objetivos de aplicar os conhecimentos adquiridos por mim, durante o período da graduação do curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas, do Centro Universitário Senac, iniciado no mês de Julho de 2022, e concluído no mês de Dezembro de 2024.
 
+<<<<<<< HEAD
 ## Tecnologias utilizadas:
 - Frontend:
    - HTML
@@ -102,3 +101,5 @@ Esses Diagramas descrevem as tabelas do banco de dados, mostrando os relacioname
 
 Caso necessite de mais esclarecimentos sobre o Projeto Loja Virtual, por favor, mande-me um e-mail: medrina@gmail.com<br>
 att: Rafael Martins
+=======
+>>>>>>> 817392d56f94a0ef23efcdc1ef11cdf81bb8d271
