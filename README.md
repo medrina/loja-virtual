@@ -35,10 +35,10 @@ A Loja Virtual consiste em 2 partes: Home e o Painel.
 --------------------------------------------------------------------------------
 ## Instruções de Uso
 ## 1) Criar o Banco de Dados e as Tabelas que compõem o funcionamento do Sistema:
-- O Projeto da Loja Virtual armazena os dados em geral através de um sistema de banco de dados MySQL relacional
-- Você deve criar o banco de dados, as tabelas inserindo alguns dados iniciais
-- No Projeto loja-virtual, abra o arquivo <b>\loja-virtual\docs\Banco de Dados\loja - Tabelas.txt</b>
-- Dentro do arquivo <b>loja - Tabelas.txt</b> , execute as instruções de comandos para criar o banco de dados, todas as tabelas, pré-inserções de dados em algumas tabelas e referências das chaves primárias com as chaves estrangeiras.
+- O Projeto da Loja Virtual armazena os dados em geral através de um sistema de Banco de Dados MySQL Relacional
+- Você deve criar o banco de dados com as tabelas através do software de SGBD de Banco de Dados Relacional MySQL no seu computador
+- No Projeto loja-virtual, abra o arquivo <b>loja - Tabelas.txt</b> que está dentro da pasta <b>docs</b>
+- Dentro do arquivo <b>loja - Tabelas.txt</b> , execute as instruções de comandos para criar o banco de dados, todas as tabelas, e referências das chaves primárias com as chaves estrangeiras.
 -----------------------------------------------------------------------------------
 ## 2) Baixar o Projeto Loja Virtual do Git Hub
 - Baixar e extraír a Loja Virtual no seu computador
