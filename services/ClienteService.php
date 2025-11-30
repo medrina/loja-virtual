@@ -244,17 +244,61 @@
                 require_once '../helper/funcoes_adicionais.php';
                 $novaSenha = encriptarSenha($_POST['senha']);
                 $this->cliente->setSenha($novaSenha);
+
                 try {
+
+                    // início das transações
+                    $this->conexao->beginTransaction();
+
+                    // inserção do cadastro do Administrador
                     $insert = "INSERT INTO cliente(nome, email, senha) VALUES(:nome, :email, :senha);";
                     $stmt = $this->conexao->prepare($insert);
                     $stmt->bindValue(':nome', $this->cliente->getNome());
                     $stmt->bindValue(':email', $this->cliente->getEmail());
                     $stmt->bindValue(':senha', $this->cliente->getSenha());
-                    if($stmt->execute()) return true;
-                    else return false;
+                    if($stmt->execute()) {
+
+                        // quando realizar o cadastro do Usuário Administrador (1º cadastro), ocorrerão as inserções necessárias de dados em algumas tabelas do Banco de Dados (seeders)
+
+                        // inserção na tabela bandeira
+                        $insert = "INSERT INTO bandeira(nome) VALUES('visa');
+                                   INSERT INTO bandeira(nome) VALUES('mastercard');
+                                   INSERT INTO bandeira(nome) VALUES('amex');
+                                   INSERT INTO bandeira(nome) VALUES('diners-club');
+                                   INSERT INTO bandeira(nome) VALUES('discover');";
+                        $this->conexao->query($insert);
+
+                        // inserção na tabela modalidade
+                        $insert = "INSERT INTO modalidade(tipo) VALUES('cartão');
+                                   INSERT INTO modalidade(tipo) VALUES('boleto');
+                                   INSERT INTO modalidade(tipo) VALUES('pix');";
+                        $this->conexao->query($insert);
+
+                        // inserção na tabela transportadora
+                        $insert = "INSERT INTO transportadora(nome) VALUES('Correios');
+                                   INSERT INTO transportadora(nome) VALUES('Jadlog');";
+                        $this->conexao->query($insert);
+
+                        // inserção na tabela forma_envio
+                        $insert = "INSERT INTO forma_envio(nome, id_transportadora) VALUES('.Package', 2);
+                                   INSERT INTO forma_envio(nome, id_transportadora) VALUES('SEDEX', 1);
+                                   INSERT INTO forma_envio(nome, id_transportadora) VALUES('PAC', 1);
+                                   INSERT INTO forma_envio(nome, id_transportadora) VALUES('.Com', 2);";
+                        $this->conexao->query($insert);
+                        
+                        // confirma todas as inserções acima
+                        $this->conexao->commit();
+
+                        return true;
+                    }
                 }
                 catch(PDOException $e) {
+
+                    // em caso de erro na inserção em alguma tabela acima, esse comando cancela todas as transações acima
+                    $this->conexao->rollBack();
+                    
                     echo 'erro: '. $e->getMessage();
+                    return false;
                 }
             }
         }

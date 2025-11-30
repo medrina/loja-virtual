@@ -187,37 +187,6 @@ $(document).ready(function () {
         });
     })
 
-    // botão do modal do cadastro do Administrador
-    $('#botao-cad-modal-admin').on('click', () => {
-        let flag = true
-        let dadosPreenchidos = $('#form-modal-cad-admin input')
-        for(var i = 0; i < dadosPreenchidos.length; i++) {
-            if(dadosPreenchidos[i].value == '') {
-                alert('Preencha todos os campos!!!')
-                flag = false
-                break
-            }
-        }
-        if(flag) {
-            let dados = $('#form-modal-cad-admin').serialize()
-            $.ajax({
-                type: "POST",
-                url: "/cliente/cad-adm",
-                data: dados,
-                dataType: "json",
-                success: ((response) => {
-                    if(response) {
-                        $('#modalCadastroAdmin').css('display', 'none')
-                        alert('Cadastro do Administrador realizado com sucesso!!!')
-                    }
-                }),
-                error: ((erro) => {
-                    console.log(`erro: ${erro}`)
-                })
-            });
-        }
-    })
-
     $('#botao-deletar-produto').on('onkeyup', () => {
         let url = $('#deletar-produto').val()
     })
@@ -570,4 +539,43 @@ function apagarEndereco(id) {
             }
         }
     });
+}
+
+function cadastrarAdmin() {
+    let flag = true
+    let dadosPreenchidos = $('#form-modal-cad-admin input')
+    for(var i = 0; i < dadosPreenchidos.length; i++) {
+        if(dadosPreenchidos[i].value == '') {
+            alert('Preencha todos os campos!!!')
+            flag = false
+            break
+        }
+    }
+    if(flag) {
+        $('#botao-cadastrar-admin').html(`<button id="botao-cad-modal-admin" class="btn btn-primary btn-lg w-100" type="button" disabled>
+                                                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                                <span role="status">Cadastrando...</span>
+                                                </button>`).css('cursor', 'not-allowed')
+        let dados = $('#form-modal-cad-admin').serialize()
+        $.ajax({
+            type: "POST",
+            url: "/cliente/cad-adm",
+            data: dados,
+            dataType: "json",
+            success: ((response) => {
+                if(response) {
+                    setTimeout(() => {
+                        alert('Cadastro do Administrador realizado com sucesso!!!')
+                        $('#modalCadastroAdmin').css('display', 'none')
+                    }, 2000)
+                }
+            }),
+            error: ((erro) => {
+                setTimeout(() => {
+                    alert('ATENÇÃO!!!\nNão foi possível cadastrar o Usuário Administrador!\nPor favor, contate a equipe de Suporte!')
+                    $('#botao-cadastrar-admin').html(`<button id="botao-cad-modal-admin" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary fonte-modal" onclick="cadastrarAdmin()" type="button">Cadastrar</button>`).css('cursor', 'default')
+                }, 2000)
+            })
+        });
+    }
 }

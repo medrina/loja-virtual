@@ -55,18 +55,20 @@
           <form id="form-modal-cad-admin" novalidate>
             <div class="form-floating mb-3">
               <input type="text" class="form-control rounded-3" id="cad-nome-admin" name="nome" placeholder="">
-              <label class="fonte-modal" for="floatingInput">Admin</label>
+              <label class="fonte-modal" for="floatingInput">Nome</label>
             </div>
             <div class="form-floating mb-3">
               <input type="email" class="form-control rounded-3" id="cad-email-admin" name="email" placeholder="">
-              <label class="fonte-modal" for="floatingInput">Login</label>
+              <label class="fonte-modal" for="floatingInput">Email</label>
             </div>
             <div class="form-floating mb-3">
               <input type="password" class="form-control rounded-3" id="cad-senha-admin" name="senha" placeholder="">
               <label class="fonte-modal" for="floatingPassword">Senha</label>
               <div id="resp-modal" class="fonte-modal"></div>
             </div>
-            <button id="botao-cad-modal-admin" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary fonte-modal" type="button">Cadastrar</button>
+            <div id="botao-cadastrar-admin">
+              <button id="botao-cad-modal-admin" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary fonte-modal" onclick="cadastrarAdmin()" type="button">Cadastrar</button>
+            </div>
           </form>
         </div>
       </div>

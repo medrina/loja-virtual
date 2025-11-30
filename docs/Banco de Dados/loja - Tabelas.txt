@@ -104,14 +104,6 @@ CREATE TABLE bandeira(
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(30)
 );
-
-INSERT INTO bandeira(id, nome) VALUES(1, 'visa');
-INSERT INTO bandeira(id, nome) VALUES(2, 'mastercard');
-INSERT INTO bandeira(id, nome) VALUES(3, 'amex');
-INSERT INTO bandeira(id, nome) VALUES(4, 'diners-club');
-INSERT INTO bandeira(id, nome) VALUES(5, 'discover');
-
-#NOTA: é necessário inserir esses dados na tabela bandeira, para que o Sistema detecte a bandeira do cartão de crédito que o usuário cliente informe
 #--------------------------------------------------------------------
 CREATE TABLE pix(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -139,12 +131,6 @@ CREATE TABLE modalidade(
     id INT PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(40)
 );
-
-INSERT INTO modalidade(id, tipo) VALUES(1, 'cartão');
-INSERT INTO modalidade(id, tipo) VALUES(2, 'boleto');
-INSERT INTO modalidade(id, tipo) VALUES(3, 'pix');
-
-#NOTA: é necessário inserir esses dados na tabela modalidade, para que o Sistema detecte o tipo de pagamento que o usuário cliente informe
 #--------------------------------------------------------------------
 CREATE TABLE pagamento(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -159,24 +145,12 @@ CREATE TABLE transportadora(
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(30)
 );
-
-INSERT INTO transportadora(id, nome) VALUES(1, 'Correios');
-INSERT INTO transportadora(id, nome) VALUES(2, 'Jadlog');
-
-#NOTA: é necessário inserir esses dados na tabela transportadora, para que o Sistema apresente as empresas de entrega disponíveis ao usuário cliente
 #--------------------------------------------------------------------
 CREATE TABLE forma_envio (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(30),
     id_transportadora INT
 );
-
-INSERT INTO forma_envio(id, nome, id_transportadora) VALUES(1, '.Package', 2);
-INSERT INTO forma_envio(id, nome, id_transportadora) VALUES(2, 'SEDEX', 1);
-INSERT INTO forma_envio(id, nome, id_transportadora) VALUES(3, 'PAC', 1);
-INSERT INTO forma_envio(id, nome, id_transportadora) VALUES(4, '.Com', 2);
-
-#NOTA: é necessário inserir esses dados na tabela forma_envio, para que o Sistema apresente as formas de envio disponíveis ao usuário cliente
 #-------------------------------------------------------------------
 CREATE TABLE frete(
     id INT PRIMARY KEY AUTO_INCREMENT,
