@@ -1,5 +1,6 @@
+# Projeto Loja Virtual
+O Projeto Loja Virtual foi desenvolvido com objetivos de aplicar os conhecimentos adquiridos por mim, durante o período da graduação do curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas, do Centro Universitário Senac, iniciado no mês de Julho de 2022, e concluído no mês de Dezembro de 2024.
 
-<<<<<<< HEAD
 ## Tecnologias utilizadas:
 - Frontend:
    - HTML
@@ -34,29 +35,35 @@ A Loja Virtual consiste em 2 partes: Home e o Painel.
 --------------------------------------------------------------------------------
 ## Instruções de Uso
 ## 1) Criar o Banco de Dados e as Tabelas que compõem o funcionamento do Sistema:
-- O Projeto da Loja Virtual armazena os dados em geral através de um sistema de banco de dados MySQL relacional
-- Você deve criar o banco de dados, as tabelas inserindo alguns dados iniciais
-- No Projeto loja-virtual, abra o arquivo <b>\loja-virtual\docs\Banco de Dados\loja - Tabelas.txt</b>
-- Dentro do arquivo <b>loja - Tabelas.txt</b> , execute as instruções de comandos para criar o banco de dados, todas as tabelas, pré-inserções de dados em algumas tabelas e referências das chaves primárias com as chaves estrangeiras.
+- O Projeto da Loja Virtual armazena os dados em geral através de um sistema de Banco de Dados MySQL Relacional
+- Você deve criar o banco de dados com as tabelas através do software de SGBD de Banco de Dados Relacional MySQL no seu computador
+- No Projeto loja-virtual, abra o arquivo <b>loja - Tabelas.txt</b> que está dentro da pasta <b>docs</b>
+- Dentro do arquivo <b>loja - Tabelas.txt</b> , execute as instruções de comandos para criar o banco de dados, todas as tabelas, e referências das chaves primárias com as chaves estrangeiras.
 -----------------------------------------------------------------------------------
 ## 2) Baixar o Projeto Loja Virtual do Git Hub
 - Baixar e extraír a Loja Virtual no seu computador
 -----------------------------------------------------------------------------------
 ## 3) Configurar informações do Banco de Dados MySQL no arquivo de configuração do Projeto Loja Virtual
-- Acessar o SGBD de Banco de Dados instalado no seu computador, e anotar o nome de usuário e senha.
+- Acessar o SGBD de Banco de Dados <b>instalado</b> no seu computador, anotar o nome de <b>usuário</b> e <b>senha</b>.
 - No Projeto loja-virtual, abra o arquivo "\loja-virtual\config\Connection.php"
-- Dentro do arquivo "\loja-virtual\config\Connection.php" , digite definindo o nome de usuário e senha nos atributos $usuario e $senha da Classe Connection
+- Dentro do arquivo "\loja-virtual\config\Connection.php" , digite definindo o nome de usuário e senha (que você anotou do SGBD do seu Banco de Dados) nos atributos <b>$usuario</b> e <b>$senha</b> da Classe Connection
 - o nome de usuário e a senha, deverão ser informados no formato string
 
-Exemplos de como deve ficar a configuração:<br>
+Exemplos de como deve ficar a configuração:<br><br>
+Ex1:<br>
+No SGBD:<br>
 nome de usuário = admin<br>senha do usuário = admin<br><br>
-private $dsn = 'mysql:host=localhost;dbname=loja';
+No arquivo Connection.php<br>
+private $dsn = 'mysql:host=localhost;dbname=loja';<br>
 private $usuario = 'admin';<br>
 private $senha = 'admin';<hr>
+Ex2:<br>
+No SGBD:<br>
 nome de usuário = root<br>senha do usuário = 12345<br><br>
-private $dsn = 'mysql:host=localhost;dbname=loja9';
+No arquivo Connection.php<br>
+private $dsn = 'mysql:host=localhost;dbname=loja';<br>
 private $usuario = 'root';<br>
-private  $senha = '12345';<br><br>
+private  $senha = '12345';<br>
 
 - após a digitação nos atributos $usuario e $senha, salve o arquivo Connection.php e feche-o
 ------------------------------------------------------------------------------------
@@ -85,21 +92,21 @@ utilizar a porta que não esteja aparecendo no resultado do comando netstat -ano
 encerrado e o prompt de comando é liberado.
 ------------------------------------------------------------------------------------
 ## Informações Complementares:
-<b>NOTA 1:</b> A Loja Virtual aceita 2 tipos de usuários: Administrador e Cliente. De modo que, ao acessar a aplicação web no seu navegador, você deve efetuar o 1º cadastro do Usuário 
-Administrador. Porque o Sistema está configurado em que o Administrador deve ser o <b>1º registro</b> a ser gravado na tabela cliente do banco de dados. À partir desse 1º registro do Administrador, 
-todos os próximos cadastros a serem efetuados, serão do tipo Usuário Cliente.
+<b>NOTA 1:</b> A Loja Virtual aceita 2 tipos de usuários: Administrador e Cliente. Após você ter criado o banco de dados juntamente com as tabelas, você inicializará a aplicação da Loja Virtual no seu navegador. Ao acessar a tela de Login pela 1º vez, será exibido um formulário de cadastro do Administrador. Esse 1º cadastro está reservado para o Usuário Administrador. Porque o Sistema está configurado em que o Administrador deve ser o <b>1º registro</b> a ser gravado na tabela cliente do banco de dados. À partir desse 1º registro do Administrador, todos os próximos cadastros a serem efetuados, serão do tipo Usuário Cliente.
 
-<b>NOTA 2:</b> Inicialmente, a Loja Virtual não exibirá nenhum produto na página home. Para o sistema buscar algum produto, o Administrador precisa se cadastrar, e após se logar na Loja Virtual, 
-no painel do Administrador, precisará cadastrar categorias juntamente com suas subcategorias, e cadastrar produtos a essas subcategorias (já) cadastradas.
+<b>NOTA 2:</b> Inicialmente, a Loja Virtual não exibirá nenhum produto na página home. Para o sistema buscar algum produto, o Administrador precisa se cadastrar, e após se logar na Loja Virtual, no painel do Administrador, precisará cadastrar categorias juntamente com suas subcategorias, e cadastrar produtos a essas subcategorias (já) cadastradas.
 
-<b>NOTA 3:</b> No Projeto loja-virtual, abra o arquivo <b>\loja-virtual\docs\Casos de Uso\Casos de Uso.pdf</b>. Esse anexo PDF contém os Casos de Uso (funcionalidades do Sistema), juntamente com a Análise de Requisitos de cada Caso, em que os Usuários Administrador e Cliente poderão executar.
+<b>NOTA 3</b> Dentro do Projeto da Loja Virtual, há uma pasta chamada <b>docs</b>. Dentro dessa pasta docs, há 2 pastas: Banco de Dados e Diagramas<br><br>
+Na pasta Banco de Dados, há 3 anexos:
+- Diagrama Entidade Relacionamento - Modelo Lógico: loja - Modelo Lógico.jpg
+- Diagrama Entidade Relacionamento - Modelo Conceitual: loja - Modelo Conceitual.jpg<br>
+Esses Diagramas descrevem as tabelas do banco de dados, mostrando os relacionamentos entre elas, e as chaves primárias (PKs) com as chaves estrangeiras (FKs)<br><br>
+Na pasta Diagramas, há 2 anexos
+- Diagrama de Casos de Uso: Casos de Uso.pdf
+- Diagrama de Classes: Diagrama de Classes.jpg<br>
 
-<b>NOTA 4:</b> Dentro dessa pasta <b>\loja-virtual\docs</b>, há uma pasta chamada <b>Banco de Dados</b>, que contém 2 anexos:
-- Diagrama Entidade Relacionamento - Modelo Lógico
-- Diagrama Entidade Relacionamento - Modelo Conceitual<br>
-Esses Diagramas descrevem as tabelas do banco de dados, mostrando os relacionamentos entre elas, e as chaves primárias (PKs) com as chaves estrangeiras (FKs)
-
+O anexo do Casos de Uso, descreve as funcionalidades da Loja Virtual, juntamente com a Análise de Requisitos de cada Caso de Uso, em que os Usuários Administrador e Cliente poderão executar.<br>
+O anexo do Diagrama de Classes, descrevem o Projeto da Loja Virtual, em um sistema estruturado orientado a objetos, mostrando as classes, atributos, e os relacionamentos entre as classes.
+<hr>
 Caso necessite de mais esclarecimentos sobre o Projeto Loja Virtual, por favor, mande-me um e-mail: medrina@gmail.com<br>
 att: Rafael Martins
-=======
->>>>>>> 817392d56f94a0ef23efcdc1ef11cdf81bb8d271
