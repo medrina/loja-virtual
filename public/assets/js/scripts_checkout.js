@@ -747,8 +747,13 @@ function finalizarPagamento() {
                             }, 5000)
                         }
                     },
+
+                    // eocorrência de algum erro interno de servidor
                     error: (erro) => {
-                        console.log(`erro: ${erro}`)
+                        setTimeout(() => {
+                            alert('Atenção!!! Ocorreu um Erro Interno na Operação\nContate a Equipe de Suporte')
+                            window.location.assign('/cliente/painel')
+                        }, 5000)
                     }
                 });
             }
