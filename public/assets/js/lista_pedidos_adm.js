@@ -22,7 +22,7 @@ $(document).ready(function () {
                             data: {data},
                             dataType: "json",
                             success: ((response) =>  {
-                                if(response) {
+                                if(response.pedidos.length != 0) {
                                     let listaPedidos = ''
                                     for(let i = 0; i < response['pedidos'].length; i++) {
                                         let precoTotalFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(response['pedidos'][i].valor)
@@ -41,6 +41,12 @@ $(document).ready(function () {
                                                     </div>
                                                 </div>`
                                     }
+                                    $('#lista_pedidos').html(listaPedidos)
+                                }
+                                else {
+                                    listaPedidos = `<div class="col-xl-4 col-md-6 col-12 mb-3">
+                                                        <h5>Não há Pedidos realizados pelos Clientes para esse dia!</h5>
+                                                    </div>`
                                     $('#lista_pedidos').html(listaPedidos)
                                 }
                             }),

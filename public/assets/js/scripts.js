@@ -124,6 +124,7 @@ $(document).ready(function () {
                             success: function (response) {
                                 if(response) {
                                     alert('Produto foi adicionado ao carrinho!');
+                                    window.location.reload()
                                 }
                             },
                             error: (erro) => {

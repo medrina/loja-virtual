@@ -31,7 +31,21 @@
               <input id="link-logoff" type="text" hidden="true" value="ola"><br><br>
               <div class="col-4">
               <form action="/cliente/painel" method="GET">
-                  <input type="submit" class="btn btn-primary" value="Meu Painel">
+                  <div class="row">
+                    <div class="col-10 text-center mt-1">
+                      <input type="submit" class="btn btn-primary" value="Meu Painel">
+                    </div>
+                    <div class="col-2">
+                      <div>
+                        <a href="/cliente/painel">
+                          <i id="carrinho-icone" class="fa-solid fa-cart-shopping"></i>
+                        </a>
+                      </div>
+                      <div id="caixa-quant">
+                        <sup id="quant-car"><?= $quantidadeItensCarrinho; ?></sup>
+                      </div>
+                    </div>
+                  </div>
               </form>
               </div>
               <div class="col-4 text-end">

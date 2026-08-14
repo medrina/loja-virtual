@@ -38,7 +38,7 @@
                                             <div>Nº: <?= $listaEnderecos[$indice]['numero']; ?></div>
                                             <?= !empty($listaEnderecos[$indice]['complemento']) ? '<div>Complemento: '. $listaEnderecos[$indice]['complemento'] .'</div>' : '<div>Complemento: -------</div>'; ?>
                                             <div>Bairro: <?= $listaEnderecos[$indice]['bairro']; ?></div>
-                                            <div>CEP: <?= $listaEnderecos[$indice]['cep']; ?></div>
+                                            <div>CEP: <?= aplicarMascara($listaEnderecos[$indice]['cep'], '#####-###'); ?></div>
                                             <div>Cidade: <?= $listaEnderecos[$indice]['nome']; ?></div>
                                             <div>Estado: <?= $listaEnderecos[$indice]['uf']; ?></div>
                                             <div>

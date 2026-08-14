@@ -9,6 +9,14 @@
             require '../classes_aux/CategoriaSubcategoriaService.php';
             $cat_subService = new CategoriaSubcategoriaService($conexao, new Categoria(), new Subcategoria());
             $cat = $cat_subService->show();
+            session_start();
+            if($_SESSION) {
+                session_write_close();
+                require '../classes_aux/ItensCarrinhoAux.php';
+                $objItensCarrinho = new ItensCarrinhoAux($conexao);
+                $quantidadeItensCarrinho = $objItensCarrinho->getQuantItensCarrinho();
+            }
+            else session_write_close();
             include __DIR__ .'/../views/layouts/home.phtml';
         }
 

@@ -189,6 +189,9 @@
                     $itensCarrinho = new ItensCarrinhoAux($conexao);
                     $itensCarrinho->fecharCompraItensCarrinho($_SESSION['id_carrinho']);
 
+                    // limpa algumas chaves específicas da sessão do Cliente
+                    unset($_SESSION['csrf_pgto'], $_SESSION['frete'], $_SESSION['id_endereco'], $_SESSION['forma_pgto']);
+
                     // após ocorrido todos os INSERTS acima, e o fechamento do carrinho de compras do cliente, esse método retornará true
                     return true;
                 }

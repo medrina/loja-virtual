@@ -73,11 +73,12 @@
 
         // alterar quantidade de itens do mesmo produto no carrinho do cliente
         public function alterarQuantidadeProdutoCarrinho(): array {
+            $status = 'status';
             try {
                 $query = "UPDATE itens_carrinho 
                                     SET quantidade = :quant,
                                         valor_total = (SELECT p.valor * :quant FROM produto p WHERE p.id = :id_produto)
-                        WHERE (id_carrinho = :id_carrinho AND id_produto = :id_produto);";
+                        WHERE (". $status ." = 1) AND (id_carrinho = :id_carrinho AND id_produto = :id_produto);";
                 $stmt = $this->conexao->prepare($query);
                 $stmt->bindValue(':quant', $_GET['quant']);
                 $stmt->bindValue(':id_carrinho', $_GET['car']);
@@ -428,11 +429,13 @@
 
         // recupera a quantidade de itens adicionados no carrinho do cliente
         private function recuperarQuantidade(int $id_carrinho, int $id_produto) {
+            $status = 'status';
             try {
-                $query = "SELECT quantidade FROM itens_carrinho WHERE (id_carrinho = :id_carrinho AND id_produto = :id_produto);";
+                $query = "SELECT quantidade FROM itens_carrinho WHERE (". $status ." = :st) AND (id_carrinho = :id_carrinho AND id_produto = :id_produto);";
                 $stmt = $this->conexao->prepare($query);
                 $stmt->bindValue('id_carrinho', $id_carrinho);
                 $stmt->bindValue('id_produto', $id_produto);
+                $stmt->bindValue(':st', 1);
                 $stmt->execute();
                 $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
                 return $resultado['quantidade'];
@@ -496,6 +499,33 @@
                     $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     return $resultado;
                 }
+            }
+            catch(PDOException $e) {
+                echo 'Erro: '. $e->getMessage();
+            }
+        }
+
+        // recuperar a soma de todos os produtos que estão adicionados no carrinho do Cliente
+        public function getQuantItensCarrinho() {
+            session_start();
+            $id_carrinho = $_SESSION['id_carrinho'];
+            session_write_close();
+            $status = 'status';
+            try {
+                $query = "SELECT sum(quantidade) AS 'quant_prod' FROM itens_carrinho WHERE (". $status ." = :st AND id_carrinho = :id_carrinho);";
+                $stmt = $this->conexao->prepare($query);
+                $stmt->bindValue(':st', 1);
+                $stmt->bindValue(':id_carrinho', $id_carrinho);
+                if($stmt->execute()) {
+                    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                    // se não houver produtos com itens presentes no carrinho do Cliente, retorna 0
+                    if(empty($resultado['quant_prod'])) return 0;
+
+                    // se houver produtos com itens presentes no carrinho do Cliente, retorna a quantidade total desses itens
+                    else return $resultado['quant_prod'];
+                }
+                
             }
             catch(PDOException $e) {
                 echo 'Erro: '. $e->getMessage();

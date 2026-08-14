@@ -11,8 +11,19 @@ use Connection as GlobalConnection;
 
         // método que recupera um único produto pelo seu id
         public function show($id) {
+            session_start();
+            if($_SESSION) {
+                session_write_close();
+                
+                // recuperar a quantidade de itens que estão adicionados no carrinho do Cliente
+                $conexao = new GlobalConnection();
+                require '../classes_aux/ItensCarrinhoAux.php';
+                $objItensCarrinho = new ItensCarrinhoAux($conexao);
+                $quantidadeItensCarrinho = $objItensCarrinho->getQuantItensCarrinho();
+            }
+            else session_write_close();
             $produto = $this->produtoService->getProduto($id);
-
+            
             // redireciona para a tela do produto
             include __DIR__ . '/../views/layouts/produto.phtml';
         }

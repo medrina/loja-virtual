@@ -68,7 +68,7 @@
                                 Produto: <?= $resultado['item'][$i]['Produto']; ?><br>
                                 Marca: <?= $resultado['item'][$i]['Marca']; ?><br>
                                 Quantidade: <?= $resultado['item'][$i]['Quant']; ?><br>
-                                Preço: <?= number_format($resultado['item'][$i]['preco_unit'],2,",","."); ?><br>
+                                Preço: R$ <?= number_format($resultado['item'][$i]['preco_unit'],2,",","."); ?><br>
                                 Total: R$ <?= number_format($resultado['item'][$i]['Total'],2,",","."); ?>
                             </div>
                             <hr>

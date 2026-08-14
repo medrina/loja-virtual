@@ -166,6 +166,29 @@ button#diminuir-quantidade {
 .campo-quantidade-produtos-carrinho {
     width: 50%;
 }
+#carrinho-icone {
+    color: #FFFFFF;
+    font-size: 1.3em;
+    position: relative;
+    top: 0.8em;
+}
+#carrinho-icone:hover {
+    color: #ADD8E6;
+    scale: calc(1.1);
+    transition: 0.5s;
+}
+#caixa-quant {
+    position: relative;
+    left: 1em;
+    bottom: 1.1em;
+}
+#quant-car {
+    color: #FFFFFF;
+    background: #FF0000;
+    border: 5px solid #FF0000;
+    border-radius: 50%;
+    font-weight: bold;
+}
 .produto-centralizar-elementos-carrinho {
     align-items: center;
 }

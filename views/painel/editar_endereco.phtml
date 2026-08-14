@@ -45,7 +45,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label>Nº *</label>
-                                    <input class="form-control mb-4 campo_form_cliente campo-obrigatorio" type="text" name="numero" value="<?= $endereco['numero']; ?>">
+                                    <input class="form-control mb-4 campo_form_cliente campo-obrigatorio" type="tel" name="numero" value="<?= $endereco['numero']; ?>">
                                 </div>
                                 <div class="col-sm-3">
                                     <label>Complemento<sup>opcional</sup></label>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label>CEP *</label>
-                                    <input id="cep" class="form-control mb-4 campo_form_cliente bg-light editar-cep campo-obrigatorio" type="text" name="cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="8" value="<?= $endereco['cep']; ?>">
+                                    <input id="cep" class="form-control mb-4 campo_form_cliente bg-light editar-cep campo-obrigatorio" type="tel" name="cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="8" value="<?= $endereco['cep']; ?>">
                                     <div id="msg-erro"></div>
                                 </div>
                             </div>
