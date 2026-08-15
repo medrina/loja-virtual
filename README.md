@@ -93,44 +93,77 @@ utilizar a porta que não esteja aparecendo no resultado do comando netstat -ano
 encerrado e o prompt de comando é liberado.
 -----------------------------------------------------------------------------------
 ## Linux Debian/Ubuntu
-## 1) clonar o Projeto da Loja Virtual
-- abrir o terminal, acessar o diretório do seu usuário digitando: <b>cd /home/NOME_SEU_USUÁRIO</b>
-- clonar o Projeto da Loja Virtual digitando: <b>sudo git clone https://github.com/medrina/loja-virtual.git</b>
 ## 1) Atualizar o sist. operac.
-- abrir o terminal, e atualizar o sistema operacional digitando: <b>apt update && apt upgrade -y</b>
+- abrir o terminal, e atualizar o sistema operacional digitando:<br><b>sudo apt update && apt upgrade -y</b>
+## 2) clonar o Projeto da Loja Virtual
+- precisa instalar o comando git para poder clonar o Projeto da Loja Virtual, digitando:<br>
+<b>sudo install git -y</b>
+- acessar o diretório do seu usuário digitando:<br><b>cd /home/NOME_SEU_USUÁRIO</b>
+- clonar o Projeto da Loja Virtual digitando:<br><b>sudo git clone https://github.com/medrina/loja-virtual.git</b>
+- será gerado o diretório: loja-virtual
 ## 2) Instalação do PHP e extensões
-- Esse projeto da Loja Virtual é compatível com as versões 8.2 - 8.3 e 8.4 do PHP.
-- para instalar a versão 8.4 do PHP e extensões compatíveis, digite no terminal <b>sudo apt install php8.4-cli php8.4-common php8.4-mysql php8.4-xml php8.4-curl php8.4-mbstring php8.4-zip</b>
-- No entanto, é necessário instalar o pacote do MySQL para a conexão com o banco de dados.
-- Baixar e instalar o pacote de uma das versões do PHP que foram descritas acima:
-      - versão 8.2: digitar <b>apt install php8.2-mysql -y</b>
-      - versão 8.3: digitar <b>apt install php8.3-mysql -y</b>
-      - versão 8.4: digitar <b>apt install php8.4-mysql -y</b>
+- esse projeto da Loja Virtual é compatível com a versão 8.4 do PHP.
+-  instalar dependências necessárias digitando:<br>
+<b>sudo apt install -y lsb-release ca-certificates apt-transport-https software-properties-common gnupg2</b>
+- baixar a chave de segurança do repositório, digitando:<br>
+<b>sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://sury.org</b>
+- adicionar esse repositório na lista de fontes digitando:<br>
+<b>echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.y/php.list</b>
+- atualizar o sistema digitando:<br>
+<b>sudo apt update -y</b>
+- instalar a versão 8.4 do PHP digitando:<br>
+<b>sudo apt install php8.4</b>
+- instalar extensões compatíveis do PHP 8.4, digite no terminal:<br><b>sudo apt install php8.4-cli php8.4-common php8.4-mysql php8.4-xml php8.4-curl php8.4-mbstring php8.4-zip</b>
+- verificar se o PHP foi instalado com êxito, digitando:<br>
+<b>sudo php --version</b>
+- a saída do comando acima, exibirá a versão do PHP que foi instalado com sucesso
 ## 3) Instalação do banco de dados
-- optei por utilizar o banco de dados MariaDB por ser leve e padrão que vem nas versões do programa XAMPP.
-- no terminal, para baixar e instalar o banco de dados MariaDB, digitar<b>sudo apt install mariadb-server -y</b>
-- acessar o console do banco de dados MariaDB, digitando: <b>sudo mariadb</b>
-- criar usuário root do MariaDB junto com a senha de root gerada por você digitando: <b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('NOVA_SENHA');</b>
-<b>- NOTA: você deve digitar a sua NOVA_SENHA dentro dos parênteses com aspas simples, igual ao modelo do comando acima</b> 
-- aplicar a criação da <b>NOVA_SENHA</b> do root do banco de dados MariaDB digitando: <b>FLUSH PRIVILEGES;</b>
-- sair do console do MariaDB digitando: <b>exit</b>
+- optei por utilizar o banco de dados MariaDB por ser leve e padrão que vem nas versões do programa XAMPP
+- no terminal, para baixar e instalar o banco de dados MariaDB, digitar:<br><b>sudo apt install mariadb-server -y</b>
+- acessar o console do banco de dados MariaDB, digitando:<br><b>sudo mariadb</b>
+- criar usuário root do MariaDB junto com a senha de root gerada por você digitando:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('NOVA_SENHA');</b>
+<br><b>- NOTA: você deve digitar a sua NOVA_SENHA dentro dos parênteses com aspas simples, igual ao modelo do comando acima</b> 
+- aplicar a criação da <b>NOVA_SENHA</b> do root do banco de dados MariaDB digitando:<br><b>FLUSH PRIVILEGES;</b>
+- sair do console do MariaDB digitando:<br><b>exit</b>
 ## 4) Criação das tabelas do banco de dados
-:- acessar o console do banco de dados MariaDB com a sua NOVA_SENHA que você digitou e cadastrou no root, digitando? <b>sudo mariadb -u root -p</b>  , em seguida, o MariaDB irá pedir a sua NOVA_SENHA que você cadastrou no root
-- se der certo, o MariaDB habilitará o console para poder digitar os comandos MySQL
-- criar o database da loja virtual digitando: <b>create database loja;</b>
-<b>- NOTA: o nome desse database será <i>loja</i>, mas se você quiser alterar para outro nome, você pode fazer, desde que o nome do database seja informado dentro do arquivo de conexão da Loja Virtual (veremos essa configuração mais adiante). Mas por padrão, o nome do database dentro do arquivo de conexão está definido como loja
-- em seguida, após a criação do database, digitar <b>use loja</b> para selecionar o database loja.
+- acessar o console do banco de dados MariaDB com a sua NOVA_SENHA que você digitou e cadastrou no root, digitando:<br><b>sudo mariadb -u root -p</b><br>em seguida, o MariaDB irá pedir a sua NOVA_SENHA que você cadastrou no root
+- ocorrendo sucesso, o MariaDB habilitará o console para poder digitar os comandos MySQL
+- criar o database da loja virtual digitando:<br><b>create database loja;</b>
+- <b>NOTA: o nome desse database será <i>loja</i>, mas se você quiser alterar para outro nome, você pode fazer, desde que o nome do database seja informado dentro do arquivo de conexão da Loja Virtual (veremos essa configuração mais adiante). Mas por padrão, o nome do database dentro do arquivo de conexão está definido como loja</b>
+- em seguida, após a criação do database, digitar:<br><b>use loja</b> para selecionar o database loja.
 - criar as tabelas desse database da loja virtual. Há um arquivo em txt que possui os comandos de criação das tabelas com as suas colunas. Esse arquivo está no path: <b>loja-virtual\docs\Banco de Dados\loja - Tabelas</b>. Precisa criar as 23 tabelas descritas dentro desse arquivo.
 -----------------------------------------------------------------------------------
 ## 5) Aplicar permissões ao Projeto da Loja Virtual
-- conceder permissão do usuário local para todo diretório do projeto digitando: <b>sudo chown -R NOME_USUÁRIO:NOME_USUÁRIO loja-virtual/</b>
-<b>- NOTA: você deve informar o nome do seu usuário que você utiliza para se logar no sist. operac. (não é o usuário root, é o nome do seu usuário que você se loga para inicializar o sistema)</b>
-- dar permissão de escrita no diretório de upload das imagens dos produtos digitando: <b>sudo chmod 755 /home/NOME_SEU_USUÁRIO/loja-virtual/public/assets/img</b>
+- conceder permissão do usuário local para todo diretório do projeto digitando:<br><b>sudo chown -R NOME_USUÁRIO:NOME_USUÁRIO loja-virtual/</b>
+- <b>NOTA: você deve informar o nome do seu usuário que você utiliza para se logar no sist. operac. (não é o usuário root, mas o nome do seu usuário que você se loga para inicializar o sistema)</b>
+- dar permissão de escrita no diretório de upload das imagens dos produtos digitando:<br><b>sudo chmod 755 /home/NOME_SEU_USUÁRIO/loja-virtual/public/assets/img</b>
 ## 6) Inicializando a Loja Virtual
-- acessar a pasta public da loja-virtual digitand:o <b>cd loja-virtual/public</b>
-- inicializar o servidor PHP embutido digitando: <b>sudo php -S localhost:8000</b>
-- acessar no navegador diigtando na URL: <b>localhost:8000</b>
-- deverá mostrar a página hme apenas com o botão de Login
+- configurar o nome da base de dados, usuário e senha no arquivo de conexão ao MariaDB. Editar o arquivo "\loja-virtual\config\Connection.php" com o seu editor: vim, nano, VS Code,...
+- Dentro do arquivo "\loja-virtual\config\Connection.php" , digite definindo o nome de usuário e senha (que você anotou do SGBD do seu Banco de Dados) nos atributos <b>$usuario</b> e <b>$senha</b> da Classe Connection
+- o nome de usuário e a senha, deverão ser informados no formato string
+
+Exemplos de como deve ficar a configuração:<br><br>
+Ex1:<br>
+No SGBD:<br>
+nome de usuário = admin<br>senha do usuário = admin<br><br>
+No arquivo Connection.php<br>
+private $dsn = 'mysql:host=localhost;dbname=loja';<br>
+private $usuario = 'admin';<br>
+private $senha = 'admin';<hr>
+Ex2:<br>
+No SGBD:<br>
+nome de usuário = root<br>senha do usuário = 12345<br><br>
+No arquivo Connection.php<br>
+private $dsn = 'mysql:host=localhost;dbname=loja';<br>
+private $usuario = 'root';<br>
+private  $senha = '12345';<br>
+
+- após a digitação nos atributos $usuario e $senha, salve o arquivo Connection.php e feche-o
+
+- acessar a pasta public da loja-virtual digitando:<br><b>cd loja-virtual/public</b>
+- inicializar o servidor PHP embutido digitando:<br><b>sudo php -S localhost:8000</b>
+- acessar no navegador digitando na URL:<br><b>localhost:8000</b>
+- deverá mostrar a página home apenas com o botão de Login
 -----------------------------------------------------------------------------------
 ## Informações Complementares:
 <b>NOTA 1:</b> A Loja Virtual aceita 2 tipos de usuários: Administrador e Cliente. Após você ter criado o banco de dados juntamente com as tabelas, você inicializará a aplicação da Loja Virtual no seu navegador. Ao acessar a tela de Login pela 1º vez, será exibido um formulário de cadastro do Administrador. Esse 1º cadastro está reservado para o Usuário Administrador. Porque o Sistema está configurado em que o Administrador deve ser o <b>1º registro</b> a ser gravado na tabela cliente do banco de dados. À partir desse 1º registro do Administrador, todos os próximos cadastros a serem efetuados, serão do tipo Usuário Cliente.
