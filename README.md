@@ -97,12 +97,13 @@ encerrado e o prompt de comando é liberado.
 - abrir o terminal, e atualizar o sistema operacional digitando:<br><b>sudo apt update && apt upgrade -y</b>
 ## 2) clonar o Projeto da Loja Virtual
 - precisa instalar o comando git para poder clonar o Projeto da Loja Virtual, digitando:<br>
-<b>sudo install git -y</b>
+<b>sudo apt install git -y</b>
 - acessar o diretório do seu usuário digitando:<br><b>cd /home/NOME_SEU_USUÁRIO</b>
 - clonar o Projeto da Loja Virtual digitando:<br><b>sudo git clone https://github.com/medrina/loja-virtual.git</b>
 - será gerado o diretório: loja-virtual
 ## 2) Instalação do PHP e extensões
 - esse projeto da Loja Virtual é compatível com a versão 8.4 do PHP.
+- ===============
 -  instalar dependências necessárias digitando:<br>
 <b>sudo apt install -y lsb-release ca-certificates apt-transport-https software-properties-common gnupg2</b>
 - baixar a chave de segurança do repositório, digitando:<br>
@@ -111,9 +112,8 @@ encerrado e o prompt de comando é liberado.
 <b>echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.y/php.list</b>
 - atualizar o sistema digitando:<br>
 <b>sudo apt update -y</b>
-- instalar a versão 8.4 do PHP digitando:<br>
-<b>sudo apt install php8.4</b>
-- instalar extensões compatíveis do PHP 8.4, digite no terminal:<br><b>sudo apt install php8.4-cli php8.4-common php8.4-mysql php8.4-xml php8.4-curl php8.4-mbstring php8.4-zip</b>
+- ================
+- instalar a versão 8.4 do PHP e suas extensões compatíveis, digite no terminal:<br><b>sudo apt install php8.4 php8.4-cli php8.4-common php8.4-mysql php8.4-xml php8.4-curl php8.4-mbstring php8.4-zip -y</b>
 - verificar se o PHP foi instalado com êxito, digitando:<br>
 <b>sudo php --version</b>
 - a saída do comando acima, exibirá a versão do PHP que foi instalado com sucesso
@@ -122,7 +122,8 @@ encerrado e o prompt de comando é liberado.
 - no terminal, para baixar e instalar o banco de dados MariaDB, digitar:<br><b>sudo apt install mariadb-server -y</b>
 - acessar o console do banco de dados MariaDB, digitando:<br><b>sudo mariadb</b>
 - criar usuário root do MariaDB junto com a senha de root gerada por você digitando:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('NOVA_SENHA');</b>
-<br><b>- NOTA: você deve digitar a sua NOVA_SENHA dentro dos parênteses com aspas simples, igual ao modelo do comando acima</b> 
+<br><b>- NOTA: você deve digitar a sua NOVA_SENHA dentro dos parênteses com aspas simples, igual ao modelo do comando acima</b><br><hr>
+Exemplo 1: se a senha definida for root, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('root');</b><br><br>Exemplo 2: se a senha definida for admin, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('admin');</b><hr>
 - aplicar a criação da <b>NOVA_SENHA</b> do root do banco de dados MariaDB digitando:<br><b>FLUSH PRIVILEGES;</b>
 - sair do console do MariaDB digitando:<br><b>exit</b>
 ## 4) Criação das tabelas do banco de dados
@@ -130,7 +131,7 @@ encerrado e o prompt de comando é liberado.
 - ocorrendo sucesso, o MariaDB habilitará o console para poder digitar os comandos MySQL
 - criar o database da loja virtual digitando:<br><b>create database loja;</b>
 - <b>NOTA: o nome desse database será <i>loja</i>, mas se você quiser alterar para outro nome, você pode fazer, desde que o nome do database seja informado dentro do arquivo de conexão da Loja Virtual (veremos essa configuração mais adiante). Mas por padrão, o nome do database dentro do arquivo de conexão está definido como loja</b>
-- em seguida, após a criação do database, digitar:<br><b>use loja</b> para selecionar o database loja.
+- em seguida, após a criação do database, digitar:<br><b>use loja;</b><br> para selecionar o database loja.
 - criar as tabelas desse database da loja virtual. Há um arquivo em txt que possui os comandos de criação das tabelas com as suas colunas. Esse arquivo está no path: <b>loja-virtual\docs\Banco de Dados\loja - Tabelas</b>. Precisa criar as 23 tabelas descritas dentro desse arquivo.
 -----------------------------------------------------------------------------------
 ## 5) Aplicar permissões ao Projeto da Loja Virtual
