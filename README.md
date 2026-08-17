@@ -98,26 +98,16 @@ encerrado e o prompt de comando é liberado.
 ## 2) clonar o Projeto da Loja Virtual
 - precisa instalar o comando git para poder clonar o Projeto da Loja Virtual, digitando:<br>
 <b>sudo apt install git -y</b>
-- acessar o diretório do seu usuário digitando:<br><b>cd /home/NOME_SEU_USUÁRIO</b>
+- acessar o diretório do seu usuário digitando:<br><b>cd /home/$USER</b>
 - clonar o Projeto da Loja Virtual digitando:<br><b>sudo git clone https://github.com/medrina/loja-virtual.git</b>
 - será gerado o diretório: loja-virtual
-## 2) Instalação do PHP e extensões
+## 3) Instalação do PHP e extensões
 - esse projeto da Loja Virtual é compatível com a versão 8.4 do PHP.
-- ===============
--  instalar dependências necessárias digitando:<br>
-<b>sudo apt install -y lsb-release ca-certificates apt-transport-https software-properties-common gnupg2</b>
-- baixar a chave de segurança do repositório, digitando:<br>
-<b>sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://sury.org</b>
-- adicionar esse repositório na lista de fontes digitando:<br>
-<b>echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.y/php.list</b>
-- atualizar o sistema digitando:<br>
-<b>sudo apt update -y</b>
-- ================
 - instalar a versão 8.4 do PHP e suas extensões compatíveis, digite no terminal:<br><b>sudo apt install php8.4 php8.4-cli php8.4-common php8.4-mysql php8.4-xml php8.4-curl php8.4-mbstring php8.4-zip -y</b>
 - verificar se o PHP foi instalado com êxito, digitando:<br>
 <b>sudo php --version</b>
 - a saída do comando acima, exibirá a versão do PHP que foi instalado com sucesso
-## 3) Instalação do banco de dados
+## 4) Instalação do banco de dados
 - optei por utilizar o banco de dados MariaDB por ser leve e padrão que vem nas versões do programa XAMPP
 - no terminal, para baixar e instalar o banco de dados MariaDB, digitar:<br><b>sudo apt install mariadb-server -y</b>
 - acessar o console do banco de dados MariaDB, digitando:<br><b>sudo mariadb</b>
@@ -126,33 +116,36 @@ encerrado e o prompt de comando é liberado.
 Exemplo 1: se a senha definida for root, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('root');</b><br><br>Exemplo 2: se a senha definida for admin, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('admin');</b><hr>
 - aplicar a criação da <b>NOVA_SENHA</b> do root do banco de dados MariaDB digitando:<br><b>FLUSH PRIVILEGES;</b>
 - sair do console do MariaDB digitando:<br><b>exit</b>
-## 4) Criação das tabelas do banco de dados
-- acessar o console do banco de dados MariaDB com a sua NOVA_SENHA que você digitou e cadastrou no root, digitando:<br><b>sudo mariadb -u root -p</b><br>em seguida, o MariaDB irá pedir a sua NOVA_SENHA que você cadastrou no root
-- ocorrendo sucesso, o MariaDB habilitará o console para poder digitar os comandos MySQL
-- criar o database da loja virtual digitando:<br><b>create database loja;</b>
-- <b>NOTA: o nome desse database será <i>loja</i>, mas se você quiser alterar para outro nome, você pode fazer, desde que o nome do database seja informado dentro do arquivo de conexão da Loja Virtual (veremos essa configuração mais adiante). Mas por padrão, o nome do database dentro do arquivo de conexão está definido como loja</b>
-- em seguida, após a criação do database, digitar:<br><b>use loja;</b><br> para selecionar o database loja.
-- criar as tabelas desse database da loja virtual. Há um arquivo em txt que possui os comandos de criação das tabelas com as suas colunas. Esse arquivo está no path: <b>loja-virtual\docs\Banco de Dados\loja - Tabelas</b>. Precisa criar as 23 tabelas descritas dentro desse arquivo.
+## 5) Criação das tabelas do banco de dados
+- executar o script de criação do banco de dados loja e as tabelas, digitando:<br>
+<b>sudo mariadb -u root -p < /home/$USER/loja-virtual/docs/Banco-de-Dados/tabelas.sql</b>
+- <b>NOTA: o MariaDB irá pedir a senha de root que você definiu na etapa anterior</b>
 -----------------------------------------------------------------------------------
-## 5) Aplicar permissões ao Projeto da Loja Virtual
-- conceder permissão do usuário local para todo diretório do projeto digitando:<br><b>sudo chown -R NOME_USUÁRIO:NOME_USUÁRIO loja-virtual/</b>
-- <b>NOTA: você deve informar o nome do seu usuário que você utiliza para se logar no sist. operac. (não é o usuário root, mas o nome do seu usuário que você se loga para inicializar o sistema)</b>
-- dar permissão de escrita no diretório de upload das imagens dos produtos digitando:<br><b>sudo chmod 755 /home/NOME_SEU_USUÁRIO/loja-virtual/public/assets/img</b>
-## 6) Inicializando a Loja Virtual
+## 6) Aplicar permissões ao Projeto da Loja Virtual
+- conceder permissão do usuário local para todo diretório do projeto digitando:<br><b>sudo chown -R $USER:$USER loja-virtual/</b>
+## 7) Inicializando a Loja Virtual
 - configurar o nome da base de dados, usuário e senha no arquivo de conexão ao MariaDB. Editar o arquivo "\loja-virtual\config\Connection.php" com o seu editor: vim, nano, VS Code,...
-- Dentro do arquivo "\loja-virtual\config\Connection.php" , digite definindo o nome de usuário e senha (que você anotou do SGBD do seu Banco de Dados) nos atributos <b>$usuario</b> e <b>$senha</b> da Classe Connection
-- o nome de usuário e a senha, deverão ser informados no formato string
+- Dentro do arquivo "\loja-virtual\config\Connection.php" , digite definindo o nome de usuário e senha (que você definiu no Banco de Dados MariaDB) nos atributos <b>$usuario</b> e <b>$senha</b> da Classe Connection
+- <b>NOTA: o nome de $usuário e a $senha, deverão ser informados no formato string (dentro de aspas simples, como nos exemplos abaixo)</b>
 
 Exemplos de como deve ficar a configuração:<br><br>
-Ex1:<br>
-No SGBD:<br>
-nome de usuário = admin<br>senha do usuário = admin<br><br>
+Exemplo 1:<br>
+No Banco de Dados MariaDB:<br>
+nome de usuário = root<br>senha do usuário = root<br><br>
 No arquivo Connection.php<br>
 private $dsn = 'mysql:host=localhost;dbname=loja';<br>
-private $usuario = 'admin';<br>
-private $senha = 'admin';<hr>
-Ex2:<br>
-No SGBD:<br>
+private $usuario = 'root';<br>
+private $senha = 'root';<hr>
+Exemplo 2:<br>
+No Banco de Dados MariaDB:<br>
+nome de usuário = root<br>senha do usuário = admin<br><br>
+No arquivo Connection.php<br>
+private $dsn = 'mysql:host=localhost;dbname=loja';<br>
+private $usuario = 'root';<br>
+private  $senha = 'admin';<hr>
+
+Exemplo 3:<br>
+No Banco de Dados MariaDB:<br>
 nome de usuário = root<br>senha do usuário = 12345<br><br>
 No arquivo Connection.php<br>
 private $dsn = 'mysql:host=localhost;dbname=loja';<br>
@@ -161,8 +154,8 @@ private  $senha = '12345';<br>
 
 - após a digitação nos atributos $usuario e $senha, salve o arquivo Connection.php e feche-o
 
-- acessar a pasta public da loja-virtual digitando:<br><b>cd loja-virtual/public</b>
-- inicializar o servidor PHP embutido digitando:<br><b>sudo php -S localhost:8000</b>
+- acessar a pasta public da loja-virtual digitando:<br><b>cd /home/$USER/loja-virtual/public</b>
+- inicializar o servidor PHP digitando:<br><b>sudo php -S localhost:8000</b>
 - acessar no navegador digitando na URL:<br><b>localhost:8000</b>
 - deverá mostrar a página home apenas com o botão de Login
 -----------------------------------------------------------------------------------
@@ -171,8 +164,8 @@ private  $senha = '12345';<br>
 
 <b>NOTA 2:</b> Inicialmente, a Loja Virtual não exibirá nenhum produto na página home. Para o sistema buscar algum produto, o Administrador precisa se cadastrar, e após se logar na Loja Virtual, no painel do Administrador, precisará cadastrar categorias juntamente com suas subcategorias, e cadastrar produtos a essas subcategorias (já) cadastradas.
 
-<b>NOTA 3</b> Dentro do Projeto da Loja Virtual, há uma pasta chamada <b>docs</b>. Dentro dessa pasta docs, há 2 pastas: Banco de Dados e Diagramas<br><br>
-Na pasta Banco de Dados, há 3 anexos:
+<b>NOTA 3</b> Dentro do Projeto da Loja Virtual, há uma pasta chamada <b>docs</b>. Dentro dessa pasta docs, há 2 pastas: Banco-de-Dados e Diagramas<br><br>
+Na pasta Banco-de-Dados, há 3 anexos:
 - Diagrama Entidade Relacionamento - Modelo Lógico: loja - Modelo Lógico.jpg
 - Diagrama Entidade Relacionamento - Modelo Conceitual: loja - Modelo Conceitual.jpg<br>
 Esses Diagramas descrevem as tabelas do banco de dados, mostrando os relacionamentos entre elas, e as chaves primárias (PKs) com as chaves estrangeiras (FKs)<br><br>
