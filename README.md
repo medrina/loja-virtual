@@ -94,7 +94,7 @@ encerrado e o prompt de comando é liberado.
 -----------------------------------------------------------------------------------
 ## Linux Debian/Ubuntu
 ## 1) Atualizar o sist. operac.
-- abrir o terminal, e atualizar o sistema operacional digitando:<br><b>sudo apt update && apt upgrade -y</b>
+- abrir o terminal, e atualizar o sistema operacional digitando:<br><b>sudo apt update && sudo apt upgrade -y</b>
 ## 2) clonar o Projeto da Loja Virtual
 - precisa instalar o comando git para poder clonar o Projeto da Loja Virtual, digitando:<br>
 <b>sudo apt install git -y</b>
@@ -105,15 +105,15 @@ encerrado e o prompt de comando é liberado.
 - esse projeto da Loja Virtual é compatível com a versão 8.4 do PHP.
 - instalar a versão 8.4 do PHP e suas extensões compatíveis, digite no terminal:<br><b>sudo apt install php8.4 php8.4-cli php8.4-common php8.4-mysql php8.4-xml php8.4-curl php8.4-mbstring php8.4-zip -y</b>
 - verificar se o PHP foi instalado com êxito, digitando:<br>
-<b>sudo php --version</b>
+<b>sudo php -v</b>
 - a saída do comando acima, exibirá a versão do PHP que foi instalado com sucesso
 ## 4) Instalação do banco de dados
 - optei por utilizar o banco de dados MariaDB por ser leve e padrão que vem nas versões do programa XAMPP
 - no terminal, para baixar e instalar o banco de dados MariaDB, digitar:<br><b>sudo apt install mariadb-server -y</b>
 - acessar o console do banco de dados MariaDB, digitando:<br><b>sudo mariadb</b>
-- criar usuário root do MariaDB junto com a senha de root gerada por você digitando:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('NOVA_SENHA');</b>
-<br><b>- NOTA: você deve digitar a sua NOVA_SENHA dentro dos parênteses com aspas simples, igual ao modelo do comando acima</b><br><hr>
-Exemplo 1: se a senha definida for root, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('root');</b><br><br>Exemplo 2: se a senha definida for admin, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('admin');</b><hr>
+- definir senha de usuário root do MariaDB gerada por você digitando:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('NOVA_SENHA');</b>
+<br><b>- NOTA: você deve digitar a sua NOVA_SENHA dentro dos parênteses com aspas simples, (ver exemplos abaixo)</b><br><hr>
+Exemplo 1: se a senha definida for root, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('root');</b><br><br>Exemplo 2: se a senha definida for admin, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('admin');</b><br><br>Exemplo 2: se a senha definida for 12345, então a sintaxe do comando fica assim:<br><b>ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('12345');</b><hr>
 - aplicar a criação da <b>NOVA_SENHA</b> do root do banco de dados MariaDB digitando:<br><b>FLUSH PRIVILEGES;</b>
 - sair do console do MariaDB digitando:<br><b>exit</b>
 ## 5) Criação das tabelas do banco de dados
@@ -174,7 +174,7 @@ Na pasta Diagramas, há 2 anexos
 - Diagrama de Classes: Diagrama de Classes.jpg<br>
 
 O anexo do Casos de Uso, descreve as funcionalidades da Loja Virtual, juntamente com a Análise de Requisitos de cada Caso de Uso, em que os Usuários Administrador e Cliente poderão executar.<br>
-O anexo do Diagrama de Classes, descrevem o Projeto da Loja Virtual, em um sistema estruturado orientado a objetos, mostrando as classes, atributos, e os relacionamentos entre as classes.
+O anexo do Diagrama de Classes, descreve o Projeto da Loja Virtual, em um sistema estruturado orientado a objetos, mostrando as classes, atributos, e os relacionamentos entre as classes.
 <hr>
 Caso necessite de mais esclarecimentos sobre o Projeto Loja Virtual, por favor, mande-me um e-mail: medrina@gmail.com<br>
 att: Rafael Martins
