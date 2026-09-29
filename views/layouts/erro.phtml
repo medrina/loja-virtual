@@ -1,0 +1,28 @@
+<?php
+    if(isset($_SESSION['id'])) {
+        session_destroy();
+    }
+    include '../views/sections/header.html';
+?>
+<body>
+  <div id="login">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg">
+            <div class="col-4">
+                <a class="btn btn-outline-primary" href="/login">Login</a>
+            </div>
+            </nav>
+        </div>
+    </div>
+  </div>
+  <div class="container mt-3">
+        <h1 class="text-danger">ERRO!</h1>
+        <p>
+            <span>Não foi possível realizar essa operação!!!</span>
+        </p>
+        <p><span>Tente novamente mais tarde!</span></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
