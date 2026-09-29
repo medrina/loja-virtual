@@ -37,6 +37,16 @@ div#secao-checkout {
     opacity: 88%;
     z-index: 2;
 }
+
+.circular_entrega {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    top: 250px;
+    left: 50px;
+    visibility: hidden;
+}
+
 .card-espacamento-pagamento {
     position: relative;
     right: 0.75rem;
@@ -50,6 +60,15 @@ div#secao-checkout {
     bottom: 230px; right: 13px;
     opacity: 88%;
     z-index: 2;
+}
+.circular_pagamento {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    top: 250px;
+    left: 50px;
+    z-index: 1;
+    visibility: hidden;
 }
 .card-espacamento-pedido {
     position: relative;
@@ -267,3 +286,4 @@ div#secao-checkout {
         font-size: 18px;
     }
 }
+

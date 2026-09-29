@@ -32,10 +32,10 @@
                     </div>
                     <form id="form-dados-pessoais-checkout">
                         <input type="text" type="hidden" hidden="true" name="id-dados-pessoais-checkout" value="<?= $clienteService->__get('cliente')->getID(); ?>">
-                        <button id="botao-dados-pessoais-checkout" type="button" class="btn btn-primary form-control botao-confirmacao dados">CONFIRMAR</button> 
+                        <button id="botao-dados-pessoais-checkout" type="button" class="btn btn-primary form-control botao-confirmacao dados">CONFIRMAR</button>
                     </form><br>
                 </div>
-                <span id="teste"></span>
+                <div id="enviar-dados-pessoais"></div>
                 <div id="mask-dados-pessoais"></div>
             </div>
             <div id="coluna-entrega" class="col-12 col-md-2 coluna-secao">
@@ -70,7 +70,9 @@
                     <?php } ?>
                     
                 </div>
-                <div id="mask-entrega" class="mascara-entrega"></div>
+                <div id="mask-entrega" class="mascara-entrega">
+                    <div class="circular_entrega"></div>
+                </div>
             </div>
             <div class="col-12 col-md-5 coluna-secao">
                 <div class="card-espacamento-pagamento dados text-center p-1">
@@ -169,7 +171,9 @@
                     <div class="col-12">
                     </div>
                 </div>
-                <div id="mask-pagamento" class="mascara-pagamento"></div>
+                <div id="mask-pagamento" class="mascara-pagamento">
+                    <div class="circular_pagamento"></div>
+                </div>
             </div>
             <div id="coluna-resumo-pedido" class="col-12 col-md-3">
                 <div class="card-espacamento-pedido text-center p-1">
@@ -248,3 +252,4 @@
 </body>
 </html>
 <script src="/assets/js/scripts_checkout.js"></script>
+
