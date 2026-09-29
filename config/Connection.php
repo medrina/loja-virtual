@@ -13,8 +13,10 @@
                 $this->conexao = new PDO($this->dsn, $this->usuario, $this->senha);
                 return $this->conexao;
             }
-            catch (PDOException $e) {
-                echo 'Erro de conexão: '. $e->getMessage();
+
+            // quando o banco de dados estiver indisponível, esse erro irá ser capturado e tratado aqui dentro desse catch, que exibirá uma página de erro
+            catch(PDOException $e) {
+                include_once '../views/layouts/erro.phtml';
             }
         }
     }
