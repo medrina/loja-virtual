@@ -1,5 +1,8 @@
 <?php
     include '../views/sections/header.html';
+
+    // captura o código de retorno da criação de cadastro do novo cliente
+    $codGET = (isset($_GET['erro'])) ? $_GET['erro'] : -1;
 ?>
 <body>
     <div class="container">
@@ -7,11 +10,14 @@
             <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-1"></div>
             <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-10">
                 <a href="/login" class="btn btn-primary">Voltar</a>
-                <?php if(isset($_GET['erro']) == 1) { ?>
+                <?php if($codGET == 1) { ?>
                     <div class="bg-danger-subtle text-danger-emphasis text-danger mt-3 p-3 mb-1 text-center msg-erro-editar-endereco">Por Favor, preencha todos os campos abaixo corretamente!</div>
                 <?php } ?>
-                <?php if(isset($_GET['err']) == 2) { ?>
+                <?php if($codGET == 2) { ?>
                     <div class="bg-danger-subtle text-danger-emphasis text-danger mt-3 p-3 mb-1 text-center msg-erro-editar-endereco">Esse email já foi cadastrado!</div>
+                <?php } ?>
+                <?php if($codGET == 3) { ?>
+                    <div class="bg-danger-subtle text-danger-emphasis text-danger mt-3 p-3 mb-1 text-center msg-erro-editar-endereco">E-mail de formato inválido! Preencha o e-mail corretamente.</div>
                 <?php } ?>
                 <h1>Criar Cadastro</h1>
                 <form method="POST" action="/login/enviar-cad" novalidate>
@@ -29,3 +35,4 @@
         </div>
     </div>
 </body>
+

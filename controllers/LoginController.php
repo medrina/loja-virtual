@@ -59,26 +59,37 @@
         public static function criarCadastro() {
             session_start();
             require_once './../helper/funcoes_adicionais.php';
+
+            // verifica se há algum cliente logado no momento. Se tiver alguém logado, será redirecionado para o painel inerno de login.
+            // senão, ele vai continuar as validações com os dados contidos na requisição 
             if(testarLogin2()) header('Location: /cliente/painel');
             else {
-                if(empty($_POST['nome']) || 
-                    empty($_POST['email']) || 
+                if(empty($_POST['nome']) ||
+                    empty($_POST['email']) ||
                     empty($_POST['senha'])) {
                         header('Location: /login/criar-login?erro=1');
-                    }
-                else {
-                    require_once './../helper/funcoes_adicionais.php';
-                    $senhaEncriptada = encriptarSenha($_POST['senha']);
-                    $cliente = new Cliente();
-                    $cliente->setNome($_POST['nome']);
-                    $cliente->setEmail($_POST['email']);
-                    $cliente->setSenha($senhaEncriptada);
-                    $conexao = new Connection();
-                    $clienteService = new ClienteService($conexao, $cliente);
-                    $resultado = $clienteService->salvarCliente();
-                    if($resultado) header('Location: /login?msg=1');
-                    else header('Location: /login/criar-login?err=2');
                 }
+                else
+
+                    // teste de validação do email na página de criar cadastro do cliente
+                    if(!(validarEmail($_POST['email']))) {
+                        header('Location: /login/criar-login?erro=3');
+                    }
+
+                    // abaixo segue as instruções de encriptar a senha, e persistência dos dados do cadastro do novo cliente
+                    else {
+                        require_once './../helper/funcoes_adicionais.php';
+                        $senhaEncriptada = encriptarSenha($_POST['senha']);
+                        $cliente = new Cliente();
+                        $cliente->setNome($_POST['nome']);
+                        $cliente->setEmail($_POST['email']);
+                        $cliente->setSenha($senhaEncriptada);
+                        $conexao = new Connection();
+                        $clienteService = new ClienteService($conexao, $cliente);
+                        $resultado = $clienteService->salvarCliente();
+                        if($resultado) header('Location: /login?msg=1');
+                        else header('Location: /login/criar-login?erro=2');
+                    }
             }
         }
 
@@ -121,3 +132,4 @@
             else echo '0';
         }
     }
+

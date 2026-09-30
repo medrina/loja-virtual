@@ -87,4 +87,11 @@
         }
         return $maskared;
     }
-    
+
+    // funcão que valida a estrutura da escrita do email (formato válido de email = true)
+    function validarEmail($email) {
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        }
+    }
+
