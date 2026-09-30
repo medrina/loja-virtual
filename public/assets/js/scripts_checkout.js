@@ -19,17 +19,28 @@ $(document).ready(function () {
     $('#cod-seguranca').mask('999')
     $('#cpf-titular').mask("999.999.999-99")
     $('#mask-dados-pessoais').removeClass('mascara-dados-pessoais')
-                
+
     $('#botao-dados-pessoais-checkout').on('click', () => {
+        $('#enviar-dados-pessoais').text('Enviando...')
+        $('.circular_pagamento').css('visibility', 'visible').html('<i class="fa-solid fa-spinner fa-spin-pulse spinner-checkout"></i>')
         let dados = $('#form-dados-pessoais-checkout').serialize()
-        $.ajax({
-            type: "POST",
-            url: "/checkout/cliente",
-            data: dados,
-            dataType: 'json',
-            success: (resposta) => {
+        confirmarEndereco()
+
+        // Essa função assíncrona, vai acionar o backend (PHP), tentando obter resposta do serviço de banco de dados. Caso não haja resposta de conexão,
+        // então o try irá tratar como uma exceção, e será acionado o catch, que irá exibir a página de erro /views/layouts/erro.phtml
+        async function confirmarEndereco() {
+            try {
+                const resposta = await $.ajax({
+                    type: "POST",
+                    url: "/checkout/cliente",
+                    data: dados,
+                    dataType: 'json'
+                });
+                                   
                 if(resposta == 1) window.location.assign('/?erro=3')
                 else if(resposta) {
+                    $('.circular_pagamento').css('visibility', 'hidden').html('')
+                    $('#enviar-dados-pessoais').text('')
                     let html = `<p class="text-center titulo dados">Dados de Identificação</p>
                                     <div class="dados">email: ${resposta['cliente'].email}</div>
                                     <div class="dados">Nome: ${resposta['cliente'].nome}</div>
@@ -41,11 +52,13 @@ $(document).ready(function () {
                     $('#mask-dados-pessoais').addClass('mascara-dados-pessoais').css('top', '-27%')
                     if(largura <= 767) $('.mascara-dados-pessoais').css('top', '-100%').css('width', '105%')
                 }
-            },
-            error: (erro) => {
-                console.log(`erro: ${erro}`)
             }
-        });
+            catch(erro) {
+
+                // se o serviço de banco de dados estiver indisponível/inacessível, retornará um erro 500, redirecionando para a página de erro
+                if(erro.status == 500) window.location.assign('/cliente/painel?erro=3')
+            }
+        }
     })
 
     $('#link-dados-pessoais').on('click', () => {
@@ -147,11 +160,19 @@ $(document).ready(function () {
     })
 
     $('#botao-selecionar-pgto-boleto').on('click', () => {
-        $.ajax({
-            type: "GET",
-            url: "/login-test",
-            dataType: "json",
-            success: (response) => {
+        $('.circular_entrega').css('visibility', 'visible').html('<i class="fa-solid fa-spinner fa-spin-pulse spinner-checkout"></i>')
+        confirmBoleto()
+
+        // Essa função assíncrona, vai acionar o backend (PHP), tentando obter resposta do serviço de banco de dados. Caso não haja resposta de conexão,
+        // então o try irá tratar como uma exceção, e será acionado o catch, que irá exibir a página de erro /views/layouts/erro.phtml
+        async function confirmBoleto() {
+            try {
+                const response = await $.ajax({
+                    type: "GET",
+                    url: "/login-test",
+                    dataType: "json"
+                });
+            
                 if(response == 0) window.location.assign('/cliente/painel?erro=3')
                 else {
                     let dados = $('#form-boleto').serialize()
@@ -170,6 +191,7 @@ $(document).ready(function () {
                                                             <hr>`)
                             }
                             colocarMascaraEntrega()
+                            $('.circular_entrega').css('visibility', 'hidden').html('')
                             let pag = document.getElementById('mask-pagamento')
                             pag = pag.getBoundingClientRect().height
                             $('.mascara-entrega').css('height', pag)
@@ -187,20 +209,33 @@ $(document).ready(function () {
                             }
                         },
                         error: (erro) => {
-                            console.log(`erro: ${erro}`)
+                            window.location.assign('/cliente/painel?erro=3')
                         }
                     });
                 }
             }
-        });
+            catch(erro) {
+                if(erro == 500) window.location.assign('/cliente/painel?erro=3')
+            }
+        }
+            
+        
     })
 
     $('#botao-selecionar-pgto-pix').on('click', () => {
-        $.ajax({
-            type: "GET",
-            url: "/login-test",
-            dataType: "json",
-            success: (response) => {
+        $('.circular_entrega').css('visibility', 'visible').html('<i class="fa-solid fa-spinner fa-spin-pulse spinner-checkout"></i>')
+        confirmPix()
+
+        // Essa função assíncrona, vai acionar o backend (PHP), tentando obter resposta do serviço de banco de dados. Caso não haja resposta de conexão,
+        // então o try irá tratar como uma exceção, e será acionado o catch, que irá exibir a página de erro /views/layouts/erro.phtml
+        async function confirmPix() {
+            try {    
+                const response = await $.ajax({
+                    type: "GET",
+                    url: "/login-test",
+                    dataType: "json"
+                });
+                
                 if(response == 0) window.location.assign('/cliente/painel?erro=3')
                 else {
                     let dados = $('#form-pix').serialize()
@@ -219,6 +254,7 @@ $(document).ready(function () {
                                                             <hr>`)
                             }
                             colocarMascaraEntrega()
+                            $('.circular_entrega').css('visibility', 'hidden').html('')
                             let pag = document.getElementById('mask-pagamento')
                             pag = pag.getBoundingClientRect().height
                             $('.mascara-entrega').css('height', pag)
@@ -237,12 +273,17 @@ $(document).ready(function () {
                             else if(largura <= 767) $('#botao-confirmar-compra').addClass('botao-final-compra')
                         },
                         error: (erro) => {
-                            console.log(`erro: ${erro}`)
+                            window.location.assign('/cliente/painel?erro=3')
                         }
                     });
                 }
             }
-        });
+            catch(erro) {
+                if(erro == 500) window.location.assign('/cliente/painel?erro=3')
+            }
+        }
+                
+                
     })
 
     $('#gerar-cod-pix').on('click', () => {
@@ -417,11 +458,19 @@ function enderecoRadio(cep, id_endereco) {
 }
 
 function enviarFrete(id_endereco, opcao) {
-    $.ajax({
-        type: "GET",
-        url: "/login-test",
-        dataType: "json",
-        success: (response) => {
+    $('.circular_pagamento').css('visibility', 'visible').html('<i class="fa-solid fa-spinner fa-spin-pulse spinner-checkout"></i>')
+    selecEntrega()
+
+    // Essa função assíncrona, vai acionar o backend (PHP), tentando obter resposta do serviço de banco de dados. Caso não haja resposta de conexão,
+    // então o try irá tratar como uma exceção, e será acionado o catch, que irá exibir a página de erro /views/layouts/erro.phtml
+    async function selecEntrega() {
+        try {
+            const response = await $.ajax({
+                type: "GET",
+                url: "/login-test",
+                dataType: "json"
+            });
+                
             if(response == 0) window.location.assign('/cliente/painel?erro=3')
             else {
                 let dados = $(`#form-frete-${opcao}`).serialize()
@@ -452,21 +501,26 @@ function enviarFrete(id_endereco, opcao) {
                             totalComFrete = (parseFloat($('#pedido-valor-total').val())) + frete
                             let valorTotalFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalComFrete)
                             $('#valor-total-pedido').html(` ${valorTotalFormatado}`)
+                            $('.circular_pagamento').css('visibility', 'hidden').html('')
                         }
                         else {
                             alert('Erro ao selecionar Frete! Tente novamente')
                         }
                     },
                     error: (erro) => {
-                        console.log(`erro: ${erro}`)
+                        window.location.assign('/cliente/painel?erro=3')
                     }
                 });
             }
         }
-    });
+        catch(erro) {
+            if(erro == 500) window.location.assign('/cliente/painel?erro=3')
+        }
+    }
 }
 
 function confirmarEndereco(id_endereco) {
+    $('.circular_pagamento').css('visibility', 'visible').html('<i class="fa-solid fa-spinner fa-spin-pulse spinner-checkout"></i>')
     $.ajax({
         type: "GET",
         url: "/login-test",
@@ -604,9 +658,10 @@ function confirmarEndereco(id_endereco) {
                                 $('.mascara-entrega').css('height', '40%')
                             }
                         }
+                        $('.circular_pagamento').css('visibility', 'hidden').html('')
                     },
                     error: (erro) => {
-                        console.log(`erro: ${erro}`)
+                        window.location.assign('/cliente/painel?erro=3')
                     }
                 });
             }
@@ -616,11 +671,19 @@ function confirmarEndereco(id_endereco) {
 
 // selecionar pagamento via cartão de crédito
 function selecionarPgto() {
-    $.ajax({
-        type: "GET",
-        url: "/login-test",
-        dataType: "json",
-        success: (response) => {
+    $('.circular_entrega').css('visibility', 'visible').html('<i class="fa-solid fa-spinner fa-spin-pulse spinner-checkout"></i>')
+    confirmPgtoCard()
+
+    // Essa função assíncrona, vai acionar o backend (PHP), tentando obter resposta do serviço de banco de dados. Caso não haja resposta de conexão,
+    // então o try irá tratar como uma exceção, e será acionado o catch, que irá exibir a página de erro /views/layouts/erro.phtml
+    async function confirmPgtoCard() {
+        try {
+            const response = await $.ajax({
+                type: "GET",
+                url: "/login-test",
+                dataType: "json"
+            });
+
             if(response == 0) window.location.assign('/cliente/painel?erro=3')
             else {
                 let parcelas = $('#numero-parcelas').val()
@@ -628,16 +691,19 @@ function selecionarPgto() {
                 let erroCartao = $('#bandeira-logo').text()
                 if(erroCartao == 'Nº INVÁLIDO') {
                     flag = false
+                    $('.circular_entrega').css('visibility', 'hidden').html('')
                     alert('Informe um Nº de cartão válido!')
                 }
                 else if($('#resp-cpf').text() === 'CPF Inválido!') {
                     flag = false
+                    $('.circular_entrega').css('visibility', 'hidden').html('')
                     alert('CPF Inválido!')
                 }
                 else {
                     let teste = $('input.campos-cartao')
                     for(var i = 0; i < teste.length; i++) {
                         if(teste[i].value == '' || parcelas == 0 || parcelas === 'Em quantas parcelas deseja pagar?') {
+                            $('.circular_entrega').css('visibility', 'hidden').html('')
                             alert('Preencha todos os campos!!!')
                             $('#erro-cartao').text('')
                             flag = false
@@ -658,6 +724,7 @@ function selecionarPgto() {
                         dataType: 'json',
                         success: (resposta) => {
                             if(resposta) {
+                                $('.circular_entrega').css('visibility', 'hidden').html('')
                                 $('#mask-pagamento').addClass('mascara-pagamento')
                                 $('#botao-confirmar1').html(`<hr>
                                                                 <button id="botao-confirmar-compra" type="button" class="btn btn-primary form-control botao-confirmacao" onclick="finalizarPagamento()">FINALIZAR COMPRA</button>
@@ -683,13 +750,16 @@ function selecionarPgto() {
                             }
                         },
                         error: (erro) => {
-                            console.log(`erro: ${erro}`)
+                            window.location.assign('/cliente/painel?erro=3')
                         }
                     });
                 }
             }
         }
-    });
+        catch(erro) {
+            if(erro == 500) window.location.assign('/cliente/painel?erro=3')
+        }
+    }
 }
 
 function selecionarParcela(event) { 
@@ -752,11 +822,28 @@ function finalizarPagamento() {
                     error: (erro) => {
                         setTimeout(() => {
                             alert('Atenção!!! Ocorreu um Erro Interno na Operação\nContate a Equipe de Suporte')
+                            $('#capa').addClass('capa').html(`
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-4">
+                                            </div>
+                                            <div class="col-8 mt-3">
+                                                <div>
+                                                    <h3 class="text-danger">NÃO FOI POSSÍVEL REALIZAR A SUA COMPRA!!!</h3><br>
+                                                    <p>Por favor, aguarde...</p>
+                                                </div>
+                                                <i class="fa-solid fa-spinner fa-spin-pulse spinner-checkout"></i>
+                                            </div>
+                                        </div>
+                                    </div>`)
                             window.location.assign('/cliente/painel')
                         }, 5000)
                     }
                 });
             }
+        },
+        error: (erro) => {
+            window.location.assign('/cliente/painel?erro=3')
         }
     });
 }
@@ -788,3 +875,4 @@ function copiarCodPix() {
         alert('ATENÇÃO, não foi possível copiar o PIX. Contate a Loja Virtual!');
     });
 }
+
